@@ -2,6 +2,7 @@ package com.PallaviAnde.Service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.PallaviAnde.Model.Contacts;
@@ -10,6 +11,7 @@ import com.PallaviAnde.Repository.ContactDao;
 @Service
 public class ContactServiceImpl implements ContactService {
 	
+	@Autowired
 	private ContactDao contactDao;
 
 	@Override
