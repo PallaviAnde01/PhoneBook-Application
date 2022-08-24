@@ -1,10 +1,13 @@
 package com.PallaviAnde.Controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -38,6 +41,42 @@ public class ContactController {
 		
 		return new ResponseEntity<String>("Contact updated successfully",HttpStatus.OK);
 		}
+
+//get all contacts:
+	@GetMapping("/")
+	public ResponseEntity<List<Contacts>> getAllContact(){
+		List<Contacts> allContact = contactService.getAllContact();
+		
+		return new ResponseEntity<List<Contacts>>(allContact,HttpStatus.OK);
+		}
 	
+//get contact by id:
+	@GetMapping("/{contactId}")
+	public ResponseEntity<Contacts> getContactById(@PathVariable Integer contactId){
+		Contacts contacts = contactService.getContactById(contactId);
+		
+		return new ResponseEntity<Contacts>(contacts,HttpStatus.OK);
+		} 
 	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

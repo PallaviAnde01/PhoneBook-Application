@@ -2,6 +2,7 @@ package com.PallaviAnde.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,14 +39,15 @@ public class ContactServiceImpl implements ContactService {
 
 	@Override
 	public List<Contacts> getAllContact() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Contacts> contacts = contactDao.findAll();
+		
+		return contacts;
 	}
 
 	@Override
 	public Contacts getContactById(Integer contactId) {
-		// TODO Auto-generated method stub
-		return null;
+		Contacts contacts = contactDao.findById(contactId).orElseThrow(()->new ResourceNotFoundException("Contact","contact id",contactId));
+		return contacts;
 	}
 
 	@Override
