@@ -16,13 +16,14 @@ public class ContactServiceImpl implements ContactService {
 
 	@Override
 	public boolean createContact(Contacts contacts) {
-		// TODO Auto-generated method stub
-		return false;
+		Contacts contact = contactDao.save(contacts);
+
+		return true;
 	}
 
 	@Override
 	public Contacts updateContact(Contacts contacts, Integer contactId) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
