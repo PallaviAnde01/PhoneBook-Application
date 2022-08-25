@@ -17,6 +17,7 @@ public class ContactServiceImpl implements ContactService {
 	@Autowired
 	private ContactDao contactDao;
 
+//create contact
 	@Override
 	public boolean createContact(Contacts contacts) {
 		Contacts contact = contactDao.save(contacts);
@@ -24,6 +25,7 @@ public class ContactServiceImpl implements ContactService {
 		return true;
 	}
 
+//update contact
 	@Override
 	public Contacts updateContact(Contacts contacts, Integer contactId) {
 		 Contacts contact = contactDao.findById(contactId).orElseThrow(()->new ResourceNotFoundException("Contact","contact id",contactId));
@@ -37,6 +39,7 @@ public class ContactServiceImpl implements ContactService {
 			return updateContact;
 		}
 
+//get contact	
 	@Override
 	public List<Contacts> getAllContact() {
 		List<Contacts> contacts = contactDao.findAll();
@@ -50,10 +53,20 @@ public class ContactServiceImpl implements ContactService {
 		return contacts;
 	}
 
+//delete contact
 	@Override
-	public boolean deleteContact(Integer ContactId) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean hardDeleteContact(Integer contactId) {
+		Contacts contacts = contactDao.findById(contactId).orElseThrow(()->new ResourceNotFoundException("Contact","contact id",contactId));
+		contactDao.deleteById(contactId);
+		return true;
+	}
+
+	@Override
+	public boolean softDeleteContact(Integer contactId) {
+		Contacts contacts = contactDao.findById(contactId).orElseThrow(()->new ResourceNotFoundException("Contact","contact id",contactId));
+		contacts.setActiveSwitch('N');
+		Contacts softDelete = contactDao.save(contacts);
+		return true;
 	}
 
 }

@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -58,6 +59,20 @@ public class ContactController {
 		return new ResponseEntity<Contacts>(contacts,HttpStatus.OK);
 		} 
 	
+//delete contact:
+	@DeleteMapping("/hard/{contactId}")
+	public ResponseEntity<String> hardDeleteContact(@PathVariable Integer contactId){
+		contactService.hardDeleteContact(contactId);
+		
+		return new ResponseEntity<String>("Contact deleted successfully",HttpStatus.OK);
+		}
+	
+	@DeleteMapping("/soft/{contactId}")
+	public ResponseEntity<String> softDeleteContact(@PathVariable Integer contactId){
+		contactService.softDeleteContact(contactId);
+		
+		return new ResponseEntity<String>("Contact deleted successfully",HttpStatus.OK);
+		}
 }
 
 

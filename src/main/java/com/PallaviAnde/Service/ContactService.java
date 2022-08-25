@@ -17,5 +17,6 @@ public interface ContactService {
 	public Contacts getContactById(Integer contactId);
 	
 	//delete contact
-	public boolean deleteContact(Integer ContactId);
+	public boolean hardDeleteContact(Integer contactId);
+	public boolean softDeleteContact(Integer contactId);
 }
