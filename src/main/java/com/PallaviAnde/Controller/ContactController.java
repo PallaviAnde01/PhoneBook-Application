@@ -1,6 +1,7 @@
 package com.PallaviAnde.Controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -18,6 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.PallaviAnde.Model.Contacts;
 import com.PallaviAnde.Service.ContactService;
+import com.PallaviAnde.Util.AppConstant;
+import com.PallaviAnde.Util.AppProps;
 
 
 @RestController
@@ -26,25 +29,30 @@ public class ContactController {
 
 	@Autowired
 	private ContactService contactService;
+	
+	@Autowired
+	private AppProps appProps;
 
 //create contact:
-	@PostMapping("/")
+	@PostMapping(value="/",consumes="application/json")
 	public ResponseEntity<String> createContact(@Valid @RequestBody Contacts contacts){
 		boolean createContact = contactService.createContact(contacts);
+		Map<String,String> message = appProps.getMessage();
 		
-		return new ResponseEntity<String>("Contact save successfully",HttpStatus.CREATED);
+		return new ResponseEntity<String>(message.get(AppConstant.Contact_Success),HttpStatus.CREATED);
 		}
 	
 //update contact:
-	@PutMapping("/{contactId}")
+	@PutMapping(value="/{contactId}",consumes="application/json")
 	public ResponseEntity<String> updateContact(@Valid @RequestBody Contacts contacts,@PathVariable Integer contactId){
 		Contacts updateContact = contactService.updateContact(contacts, contactId);
+		Map<String,String> message = appProps.getMessage();
 		
-		return new ResponseEntity<String>("Contact updated successfully",HttpStatus.OK);
+		return new ResponseEntity<String>(message.get(AppConstant.Contact_Update),HttpStatus.OK);
 		}
 
 //get all contacts:
-	@GetMapping("/")
+	@GetMapping(value="/")
 	public ResponseEntity<List<Contacts>> getAllContact(){
 		List<Contacts> allContact = contactService.getAllContact();
 		
@@ -52,7 +60,7 @@ public class ContactController {
 		}
 	
 //get contact by id:
-	@GetMapping("/{contactId}")
+	@GetMapping(value="/{contactId}")
 	public ResponseEntity<Contacts> getContactById(@PathVariable Integer contactId){
 		Contacts contacts = contactService.getContactById(contactId);
 		
@@ -60,18 +68,19 @@ public class ContactController {
 		} 
 	
 //delete contact:
-	@DeleteMapping("/hard/{contactId}")
+	@DeleteMapping(value="/hard/{contactId}")
 	public ResponseEntity<String> hardDeleteContact(@PathVariable Integer contactId){
 		contactService.hardDeleteContact(contactId);
+		Map<String,String> message = appProps.getMessage();
 		
-		return new ResponseEntity<String>("Contact deleted successfully",HttpStatus.OK);
+		return new ResponseEntity<String>(message.get(AppConstant.Contact_Delete),HttpStatus.OK);
 		}
 	
-	@DeleteMapping("/soft/{contactId}")
+	@DeleteMapping(value="/soft/{contactId}")
 	public ResponseEntity<String> softDeleteContact(@PathVariable Integer contactId){
 		contactService.softDeleteContact(contactId);
-		
-		return new ResponseEntity<String>("Contact deleted successfully",HttpStatus.OK);
+		Map<String,String> message = appProps.getMessage();
+		return new ResponseEntity<String>(message.get(AppConstant.Contact_Delete),HttpStatus.OK);
 		}
 }
 

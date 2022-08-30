@@ -1,0 +1,23 @@
+server:
+  port: 9090
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    password: root
+    url: jdbc:mysql://localhost/phonebookapplication
+    username: root
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+    show-sql: true
+  mvc:
+    pathmatch:
+      matching-strategy: ant-path-matcher
+phonebook:
+    message:
+       contactSuccess: Contact save successfully
+       contactUpdate: Contact updated successfully
+       contactDelete: Contact deleted successfully     

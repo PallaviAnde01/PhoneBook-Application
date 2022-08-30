@@ -54,6 +54,7 @@ public class ContactServiceImpl implements ContactService {
 	}
 
 //delete contact
+	//Hard Delete:
 	@Override
 	public boolean hardDeleteContact(Integer contactId) {
 		Contacts contacts = contactDao.findById(contactId).orElseThrow(()->new ResourceNotFoundException("Contact","contact id",contactId));
@@ -61,6 +62,7 @@ public class ContactServiceImpl implements ContactService {
 		return true;
 	}
 
+	//Soft Delete:
 	@Override
 	public boolean softDeleteContact(Integer contactId) {
 		Contacts contacts = contactDao.findById(contactId).orElseThrow(()->new ResourceNotFoundException("Contact","contact id",contactId));
